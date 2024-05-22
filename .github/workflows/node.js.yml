@@ -19,6 +19,9 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v4
 
+    - name: List directory contents
+      run: ls -la
+
     - name: Set up Node.js
       uses: actions/setup-node@v4
       with:
@@ -26,9 +29,12 @@ jobs:
 
     - name: Install dependencies
       run: npm install
+      working-directory: backend
 
     - name: Build project
       run: npm run build
+      working-directory: backend
 
     - name: Run unit tests
       run: npm test
+      working-directory: backend
