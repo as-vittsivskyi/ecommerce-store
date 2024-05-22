@@ -19,22 +19,38 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v4
 
-    - name: List directory contents
+    - name: List root directory contents
       run: ls -la
+
+    - name: List backend directory contents
+      run: ls -la backend
+
+    - name: List frontend directory contents
+      run: ls -la frontend
 
     - name: Set up Node.js
       uses: actions/setup-node@v4
       with:
         node-version: ${{ matrix.node-version }}
 
-    - name: Install dependencies
+    # Backend steps
+    - name: Install backend dependencies
       run: npm install
       working-directory: backend
 
-    - name: Build project
+    - name: Run backend unit tests
+      run: npm test
+      working-directory: backend
+
+    # Frontend steps
+    - name: Install frontend dependencies
+      run: npm install
+      working-directory: frontend
+
+    - name: Build frontend project
       run: npm run build
       working-directory: frontend
 
-    - name: Run unit tests
+    - name: Run frontend unit tests
       run: npm test
-      working-directory: backend
+      working-directory: frontend
